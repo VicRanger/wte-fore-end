@@ -70,7 +70,7 @@ async function UpdateInfo(vue) {
     return;
   }
   await fly
-    .post("wte/user/", {
+    .post("user/", {
       openid: userID.openid,
       avatar_url: userInfo.avatar_url,
       nickname: userInfo.nickname,
@@ -88,11 +88,11 @@ async function UpdateInfo(vue) {
         vue.userInfo.loginStatus = true;
         wx.setStorageSync("loginStatus", { status: 1, pk: res.pk });
       } else {
-        vue.userInfo.loginStatusText = "成功获取OPENID，但未成功登陆";
+        vue.userInfo.loginStatusText = "未登陆(成功获取OPENID)";
       }
     })
     .catch(err => {
-      vue.userInfo.loginStatusText = "成功获取OPENID，但未成功登陆";
+      vue.userInfo.loginStatusText = "未登陆(服务器连接失败)";
     });
 }
 </script>

@@ -2,8 +2,8 @@ import Fly from "flyio";
 const fly = new Fly;
 
 //配置请求基地址
-fly.config.baseURL = "https://wte.wzz.ink/";
-// fly.config.baseURL = "http://127.0.0.1:8000/wte/";
+// fly.config.baseURL = "https://wte.wzz.ink/wte/";
+fly.config.baseURL = "http://127.0.0.1:8000/wte/";
 
 // //添加请求拦截器
 // fly.interceptors.request.use((config, promise) => {

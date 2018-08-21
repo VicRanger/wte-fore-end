@@ -1,5 +1,5 @@
 <script>
-import {Login,UserReg,GetUserInfo} from "./utils/server.js";
+import {Login,GetUserInfo,GetData} from "./utils/server.js";
 export default {
   created() {
     // 调用API从本地缓存中获取数据
@@ -14,20 +14,9 @@ export default {
     console.log("app onlaunch");
     let userInfo = wx.getStorageSync("userInfo") || {};
     let userID = wx.getStorageSync("userID") || {};
-    console.log('userInfo: ');
-    console.log(userInfo);
-    console.log('userID: ');
-    console.log(userID);
-    // if(Object.keys(userID).length == 0){
-      Login();
-    // }
-    // if(Object.keys(userInfo).length == 0){
-      GetUserInfo();
-    console.log('after userInfo: ');
-    console.log(userInfo);
-    console.log('after userID: ');
-    console.log(userID);
-    // } 
+    Login();
+    GetUserInfo();
+    GetData();
   }
 };
 </script>

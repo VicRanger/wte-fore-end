@@ -1,11 +1,11 @@
 console.log("Import utils/index.js");
 import {
-  logoAdd,
     name,
     ename,
     picAdd,
     timeTable,
-    dayClose,
+    closeDay,
+    canteenCount
 } from "./data";
 var debugText = "";
 var canteenInfos = new Array();
@@ -25,8 +25,7 @@ var canteenInfo = function (id, name, ename, isOpen, isClosed, openTimeSeq) {
   this.picAdd = picAdd[id];
   this.text = GetTimeLeftText(this);
 }
-var canteenCount = name.length;
-
+// var canteenCount = name.length;
 
 function GetSortedCanteenInfos(){
   GetAllInfo();
@@ -99,9 +98,9 @@ function GetCanteenInfo(index) {
   var seq = timeTable[index];
   // console.log(seq);
   
-  if (ename[index] in dayClose) {
-    // console.log(ename[index] + " " + dayClose[ename[index]] + " " + new Date().getDay());
-    if (dayClose[ename[index]].indexOf(new Date().getDay()) > -1) {
+  if (ename[index] in closeDay) {
+    // console.log(ename[index] + " " + closeDay[ename[index]] + " " + new Date().getDay());
+    if (closeDay[ename[index]].indexOf(new Date().getDay()) > -1) {
       return new canteenInfo(index, name[index], ename[index], isOpen = false, isClosed = true, timeSeq);
     }
   }
@@ -138,9 +137,9 @@ function GetTimeLeftText(obj) {
   var info = obj;
   var index = obj.id;
   debugText += hours + ":" + mins + " " + curMins + "\n";
-  if (ename[index] in dayClose) {
-    console.log(ename[index] + " " + dayClose[ename[index]] + " " + new Date().getDay());
-    if (dayClose[ename[index]].indexOf(new Date().getDay()) > -1) {
+  if (ename[index] in closeDay) {
+    console.log(ename[index] + " " + closeDay[ename[index]] + " " + new Date().getDay());
+    if (closeDay[ename[index]].indexOf(new Date().getDay()) > -1) {
       ret = "这个食堂今天不营业呢！";
       return ret;
     }

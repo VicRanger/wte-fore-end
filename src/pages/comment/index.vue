@@ -66,7 +66,7 @@ export default {
       // }
       console.log(id + " " + commentItem.pk + " " + loginStatus.pk);
       fly
-        .post("wte/comment_up/", {
+        .post("comment_up/", {
           user_pk: loginStatus.pk,
           comment_pk: commentItem.pk
         })
@@ -116,7 +116,7 @@ export default {
         console.log("未获取到用户本地信息");
       }
       fly
-        .post("wte/comment/", {
+        .post("comment/", {
           user_openid: userID.openid,
           canteen_ename: this.data.ename,
           comment_text: this.commentValue
@@ -158,7 +158,7 @@ function getComments(vue) {
   vue.data = JSON.parse(vue.$root.$mp.query.data);
   // console.log(this.data);
   fly
-    .get("wte/comment_list/", {
+    .get("comment_list/", {
       canteen_ename: vue.data.ename,
       user_openid: userID.openid
     })
