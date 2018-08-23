@@ -41,7 +41,6 @@ function LoadData(data){
     ename.push(item.ename);
     name.push(item.name);
     picAdd.push(item.pic_url);
-    // console.log(item.timetable);
     timeTable.push(item.timetable);
     closeDay.push(item.closeDay);
   }
