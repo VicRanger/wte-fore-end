@@ -2,7 +2,6 @@ export{
     logoAdd,
     name,
     ename,
-    picAdd,
     timeTable,
     canteenCount,
     closeDay,
@@ -13,7 +12,7 @@ var picUrl = "https://static.wzz.moe/pic/"
 var logoAdd = picUrl + "logo.jpg";
 var name = [];
 var ename = [];
-var picAdd = [];
+var picUrl = [];
 var canteenCount = 0;
 var timeTable = [];
 var closeDay = [];
@@ -35,12 +34,13 @@ var closeDay = [];
 //   "s3": [6, 0]
 // };
 function LoadData(data){
-  canteenCount = data.canteen.length;
+  let keys = Object.keys(data.canteen);
+  canteenCount = keys.length;
   for(let i=0;i<canteenCount;i++){
-    let item = data.canteen[i];
+    let item = data.canteen[keys[i]];
     ename.push(item.ename);
     name.push(item.name);
-    picAdd.push(item.pic_url);
+    picUrl.push(item.picUrl);
     timeTable.push(item.timetable);
     closeDay.push(item.closeDay);
   }

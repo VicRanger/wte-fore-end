@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import {Obj2style} from "../../utils/tool";
 export default {
   name: "slider-nav",
   data() {
@@ -53,16 +54,9 @@ export default {
           "px",
         width: this.barWidth + "px"
       };
-      return obj2style(style);
+      return Obj2style(style);
     }
   }
-};
-var obj2style = style => {
-  let str = [];
-  Object.keys(style).forEach(key => {
-    str.push(`${key}:${style[key]};`);
-  });
-  return str.join(";");
 };
 </script>
 <style scoped>

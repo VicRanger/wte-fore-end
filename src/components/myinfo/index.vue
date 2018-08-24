@@ -3,7 +3,7 @@
   <div class="root">
     <div class="avator-dec">
       <!-- <img class="avator-bg" mode="aspectFill" :src="logoAdd" /> -->
-      <img class="avator" mode="aspectFill" :src="userInfo.avatar_url" />
+      <img @click="OnAvatorClick" class="avator" mode="aspectFill" :src="userInfo.avatar_url" />
     </div>
     <div class="login-info">
       <div v-if="userInfo.loginStatus" class="info-nickname">{{userInfo.nickname}}</div>
@@ -14,14 +14,21 @@
       <div class="opt"><div class="opt-title">我的帖子</div><div>（未开放）</div></div>
       <div class="opt"><div class="opt-title">签到</div><div>（未开放）</div></div>
       <div class="opt"><div class="opt-title">意见反馈</div><div>（未开放）</div></div>
+      <div class="pacman-fit pacman">
+        <div></div>
+        <div></div>
+        <div>502</div>
+        <div>404</div>
+      </div>
     </div>
   </div>
+    
 </scroll-view>
 </template>
 
 <script>
 import { logoAdd } from "../../utils/data";
-import { Login, GetUserInfo, UserReg, CheckUser } from "../../utils/server";
+import { Login, GetUserInfo, GetData } from "../../utils/server";
 import fly from "../../utils/fly";
 export default {
   name: "myinfo",
@@ -32,7 +39,7 @@ export default {
         avatar_url: logoAdd,
         nickname: "获取中...",
         loginStatusText: "登陆中...",
-        loginStatus : false,
+        loginStatus: false
       }
     };
   },
@@ -43,6 +50,9 @@ export default {
       this.userInfo.nickname = "获取中";
       this.userInfo.loginStatusText = "重新登陆中";
       setTimeout(Init, 3000, this);
+    },
+    OnAvatorClick() {
+      GetData();
     }
   },
   created() {
@@ -98,15 +108,15 @@ async function UpdateInfo(vue) {
 </script>
 
 <style scoped>
-.opt-tab{
+.opt-tab {
   height: 100%;
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 0px 8px -3px #000 inset;
 }
-.opt{
+.opt {
   display: flex;
   margin: 0.1rem 0 0 0;
   width: 100%;
@@ -116,10 +126,10 @@ async function UpdateInfo(vue) {
   box-shadow: 0px 0px 8px -3px #000;
   /* border-radius: 0.3rem; */
 }
-.opt:last-child{
+.opt:last-child {
   margin-bottom: 0.1rem;
 }
-.opt-title{
+.opt-title {
   margin-left: 0.5rem;
 }
 .avator-dec {
@@ -170,6 +180,9 @@ async function UpdateInfo(vue) {
   background-color: rgb(238, 136, 53);
   color: #fff;
   /* transition: all 0.3s ease; */
+}
+.pacman-fit{
+  margin: 0.5rem 0;
 }
 </style>
 

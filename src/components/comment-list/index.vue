@@ -74,6 +74,7 @@ export default {
   font-size: 0.3rem;
   text-align: center;
   padding: 0.3rem 0;
+  background-color: #fff;
 }
 .cmt-text {
   padding: 0.1rem;
@@ -91,6 +92,7 @@ export default {
 }
 .cmt-list {
   margin: 0 0;
+  background-color: #fff;
 }
 .cmt-end {
   font-size:0.3rem;

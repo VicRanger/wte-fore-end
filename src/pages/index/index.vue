@@ -32,7 +32,7 @@ export default {
   },
   computed:{
       swiperHeight(){
-        console.log(this.winHeight);
+        // console.log(this.winHeight);
         return this.winHeight-66+parseInt((1-this.winHeight/800)*15)+'px';
       }
   },
@@ -45,7 +45,7 @@ export default {
       let info = await wxp.getSystemInfo();
       this.winWidth = info.windowWidth;
       this.winHeight = info.windowHeight;
-      console.log(parseInt((this.winHeight/800)*10));
+    //   console.log(parseInt((this.winHeight/800)*10));
   }
 };
 </script>

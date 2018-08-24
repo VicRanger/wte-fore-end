@@ -1,7 +1,7 @@
 <template>
 <scroll-view>
   <div class="root container">
-    <div><img class="img" mode="aspectFill" @click="imgClick" :src="canteenInfo.picAdd?canteenInfo.picAdd:logoAdd" /></div>
+    <div><img class="img" mode="aspectFill" @click="imgClick" :src="canteenInfo.picUrl?canteenInfo.picUrl:logoAdd" /></div>
     <div class="title" v-if="canteenInfo">{{canteenInfo.name}}</div>
     <div class="text" v-if="canteenInfo" v-html="canteenInfo.text"></div>
       <!-- <button class="fixed conf-btn" :class="{'conf-btn-hide':!reChoose}" @click="OnConfBtnClick">就去这了</button> -->
@@ -40,7 +40,7 @@ export default {
       if (this.canteenInfo == null) {
         this.canteenInfo = {
           text: "现在一家食堂都没有开哦～<br />不妨去 <b>随便逛逛</b> 选项卡看看吧！",
-          picAdd: logoAdd
+          picUrl: logoAdd
         };
       }else{
         this.mainBtn = "再来一次";
@@ -49,7 +49,7 @@ export default {
     },
     imgClick() {
       wx.navigateTo({
-        url: "/pages/comment/main?data=" + JSON.stringify(this.canteenInfo)
+        url: "/pages/display/main?canteen_ename=" + this.canteenInfo.ename
       });
     }
   },
@@ -57,7 +57,7 @@ export default {
     // console.log("choose created");
   },
   onShow() {
-    console.log("choose onshow");
+    // console.log("choose onshow");
   }
 };
 </script>

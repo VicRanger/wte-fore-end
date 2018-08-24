@@ -4,7 +4,7 @@
     <div class="root container">
       <div class="top-holder">{{updateText}}</div>
         <div class="card" v-for="(item,index) in canteenInfos" :key="index" :data-ename=item.ename :id="index" @click="NavToCanteen">
-          <img class="pic" mode="aspectFill" :src="item.picAdd"/>
+          <img class="pic" mode="aspectFill" :src="item.picUrl"/>
           <div class="texts">
             <div class="name">{{item.name}}</div>
             <div :class="item.isOpen?'state-open':'state-close'">{{item.isOpen?"开放中":"已关闭"}}</div>
@@ -43,8 +43,8 @@ export default {
       console.log(e.currentTarget.id);
       wx.navigateTo({
         url:
-          "/pages/comment/main?data=" +
-          JSON.stringify(this.canteenInfos[e.currentTarget.id])
+          "/pages/display/main?canteen_ename=" +
+          this.canteenInfos[e.currentTarget.id].ename
       });
     },
     Update() {
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.Update();
+    setTimeout(this.Update,1000);
   }
 };
 </script>

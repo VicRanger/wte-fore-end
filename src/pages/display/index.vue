@@ -1,13 +1,17 @@
 <template>
   <div class="root">
-    <img mode="aspectFill" class="image" :src="data.picAdd" />
-    <div class="name"><span>{{data.name}}</span></div>
-    <div class="cmt-bar" @click="ToggleSmt"><span>所有评论({{commentList.length}})</span></div>
-    <comment-list :commentList="commentList"></comment-list>
-    <div class="cmt-smt">
-      <div class="cmt-smt-box">
-        <button @click="onSubmitComment" class="cmt-smt-btn" :class="{'cmt-smt-btn-hide':smtHide}">{{cmtSmtBtn}}</button>
-        <textarea @focus="onSubmitFocus" @blur="onSubmitBlur" v-model="commentValue" maxlength="200" auto-height fixed :placeholder="pHolder" class="cmt-smt-txt" :class="{'cmt-smt-txt-hide':smtHide}" />
+    <img mode="aspectFill" class="image" :src="canteen.picUrl" />
+    <div class="scroll-box">
+      <div class="nav">
+        <div class="canteen-name">{{canteen.name}}</div>
+        <div class="dis-tab" id="tab"><span>所有评论({{commentList.length}})</span></div>
+      </div>
+      <comment-list :commentList.sync="commentList"></comment-list>
+      <div class="cmt-smt">
+        <div class="cmt-smt-box">
+          <button @click="onSubmitComment" class="cmt-smt-btn" :class="{'cmt-smt-btn-hide':smtHide}">{{cmtSmtBtn}}</button>
+          <textarea @focus="onSubmitFocus" @blur="onSubmitBlur" v-model="commentValue" maxlength="200" auto-height fixed :placeholder="pHolder" class="cmt-smt-txt" :class="{'cmt-smt-txt-hide':smtHide}" />
+        </div>
       </div>
     </div>
   </div>
@@ -16,8 +20,9 @@
 import commentList from "../../components/comment-list";
 import fly from "../../utils/fly.js";
 import { GetTimeOffsetText, GetFormattedTimeText } from "../../utils/index";
+import { Obj2style } from "../../utils/tool";
 export default {
-  name: "comment",
+  name: "display",
   data() {
     return {
       cmtSmtBtn: "发表评论",
@@ -25,8 +30,10 @@ export default {
       pHolder: "",
       cmtSmtHideClock: {},
       message: "",
-      data: {},
+      canteen: {},
       commentValue: "",
+      navTop: 0,
+      navFullTop: 0,
       commentList: [
         {
           user_nickname: "Loading",
@@ -38,8 +45,8 @@ export default {
       ]
     };
   },
-  components:{
-    commentList:commentList,
+  components: {
+    commentList: commentList
   },
   methods: {
     onSubmitFocus() {
@@ -79,7 +86,7 @@ export default {
       fly
         .post("comment/", {
           user_openid: userID.openid,
-          canteen_ename: this.data.ename,
+          canteen_ename: this.canteen.ename,
           comment_text: this.commentValue
         })
         .then(res => {
@@ -98,15 +105,29 @@ export default {
     }
   },
   computed: {
-    
   },
   created() {
     // console.log("comment created");
   },
   onLoad(res) {
     getComments(this);
+    let query = wx.createSelectorQuery();
+    query.select("#tab").boundingClientRect();
+    query.exec(res => {
+      this.navFullTop = this.navTop = res[0].top;
+    });
+  },
+  onPageScroll() {
+    UpdateNavTop(this);
   }
 };
+function UpdateNavTop(vue){
+    let query = wx.createSelectorQuery();
+    query.select("#tab").boundingClientRect();
+    query.exec(res => {
+      vue.navTop = res[0].top;
+    });
+}
 function getComments(vue) {
   let loginStatus = wx.getStorageSync("loginStatus") || {};
   if (loginStatus && loginStatus.status == 0) {
@@ -114,29 +135,31 @@ function getComments(vue) {
     return;
   }
   let userID = wx.getStorageSync("userID") || {};
-  vue.data = JSON.parse(vue.$root.$mp.query.data);
-  // console.log(this.data);
+  let dataBase = wx.getStorageSync("dataBase") || {};
+  // console.log(dataBase);
+  vue.canteen = dataBase.data.canteen[vue.$root.$mp.query.canteen_ename];
+  // console.log(vue.canteen);
   fly
     .get("comment_list/", {
-      canteen_ename: vue.data.ename,
+      canteen_ename: vue.canteen.ename,
       user_openid: userID.openid
     })
     .then(res => {
-      console.log(res);
+      // console.log(res);
       vue.commentList = [];
       for (var i = 0; i < res.data.length; i++) {
         addTimeText(res.data[i]);
         vue.commentList.splice(0, 0, res.data[i]);
       }
-      var compare = function (x,y){
-        if(x.up_count>y.up_count){
+      var compare = function(x, y) {
+        if (x.up_count > y.up_count) {
           return -1;
-        }else if(x.up_count<y.up_count){
+        } else if (x.up_count < y.up_count) {
           return 1;
-        }else{
+        } else {
           return 0;
         }
-      }
+      };
       vue.commentList.sort(compare);
     })
     .catch(err => {
@@ -159,6 +182,15 @@ function addTimeText(obj) {
 }
 </script>
 <style scoped>
+.nav{
+  z-index: 20;
+  box-shadow: 0px 2px 5px -2px #ccc;
+}
+.scroll-box {
+  position: absolute;
+  top: 3.4rem;
+  width: 100%;
+}
 .cmt-smt {
   position: fixed;
   bottom: 0.5rem;
@@ -202,8 +234,8 @@ function addTimeText(obj) {
 }
 
 .cmt-smt-btn-hide {
-  font-size: 0.4rem;
-  line-height: 0.5rem;
+  font-size: 0.36rem;
+  line-height: 0.4rem;
   height: 0.7rem;
   padding: 0.1rem 0.2rem;
   width: 2.1rem;
@@ -212,14 +244,12 @@ function addTimeText(obj) {
   border: 1px solid rgb(238, 136, 53);
 }
 
-
-.cmt-bar {
+.dis-tab {
   border-left: 5px solid rgb(238, 136, 53);
   padding: 8px 0 8px 10px;
   text-align: left;
   font-size: 0.4rem;
-  /* border-bottom:2px solid #ccc; */
-  box-shadow: 0px 2px 2px -1px #ccc;
+  background-color: #fff;
 }
 .root {
   padding: 0;
@@ -230,15 +260,22 @@ function addTimeText(obj) {
 }
 .image {
   width: 100%;
-  height: 4rem;
+  height: 4.5rem;
+  position: fixed;
+  z-index: -999;
 }
-.name {
+.canteen-name {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   padding: 10px 0;
-  font-size: 0.5rem;
+  font-size: 0.45rem;
+  font-weight: lighter;
   width: 100%;
   text-align: center;
   color: rgb(238, 136, 53);
-  box-shadow: 0 0px 8px 0px #ccc;
+  box-shadow: 0 -6px 20px -10px #000;
+  background:linear-gradient(rgba(255,255,255,0.75),rgba(255,255,255,1));
+  text-shadow: 0px 1px 1px #BC7338;
 }
 </style>
 

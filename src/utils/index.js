@@ -2,7 +2,7 @@ console.log("Import utils/index.js");
 import {
     name,
     ename,
-    picAdd,
+    picUrl,
     timeTable,
     closeDay,
     canteenCount
@@ -22,7 +22,7 @@ var canteenInfo = function (id, name, ename, isOpen, isClosed, openTimeSeq) {
   this.name = name;
   this.ename = ename;
   this.id = id;
-  this.picAdd = picAdd[id];
+  this.picUrl = picUrl[id];
   this.text = GetTimeLeftText(this);
 }
 // var canteenCount = name.length;

@@ -59,12 +59,17 @@ function GetData() {
         }).catch(err => {
             console.log(err);
             wx.hideLoading();
+            let dataBase = wx.getStorageSync("dataBase") || {};
+            if(dataBase){
+                LoadData(dataBase.data);
+            }
             wx.showModal({
                 title: '提示',
                 content: '食堂数据下载失败（查看网络是否打开或者继续使用上次下载的数据）',
                 showCancel: false, //不显示取消按钮
                 confirmText: '确定'
-            })
+            });
+            
         });
 }
 
