@@ -18,11 +18,8 @@
     
 </template>
 <script>
-import {
-  GetSortedCanteenInfos,
-  GetTimeOffsetText,
-  GetFormattedTimeText
-} from "../../utils/index";
+import { GetSortedCanteenInfos } from "../../utils/index";
+import { GetTimeOffsetText, GetFormattedTimeText } from "../../utils/tool";
 export default {
   name: "list",
   data() {
@@ -51,7 +48,7 @@ export default {
       this.updateText = "正在更新……";
       setTimeout(() => {
         this.canteenInfos = GetSortedCanteenInfos();
-        this.updateText = "更新时间：" + GetFormattedTimeText(new Date(),1);
+        this.updateText = "更新时间：" + GetFormattedTimeText(new Date(), 1);
         // wx.navigateTo({
         //   url:"/pages/comment/main?data="+JSON.stringify(this.canteenInfos[5])
         // });
@@ -59,14 +56,14 @@ export default {
     }
   },
   created() {
-    setTimeout(this.Update,1000);
+    setTimeout(this.Update, 1000);
   }
 };
 </script>
 <style scoped>
-.top-holder{
+.top-holder {
   font-size: 0.3rem;
-  color:#999;
+  color: #999;
 }
 .root {
   padding: 0.2rem 0;
@@ -119,7 +116,7 @@ export default {
   color: firebrick;
   margin: 0.1rem 0 0.15rem 0;
 }
-.bottom-holder{
+.bottom-holder {
   font-size: 0.3rem;
   color: #999;
 }

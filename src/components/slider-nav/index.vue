@@ -39,6 +39,7 @@ export default {
     ChangeTab(e) {
       let index = e.target.dataset.index;
       if (index == this.currentTab) return;
+      this.currentTab = index;
       this.$emit("update:currentTab", index);
       // console.log(e);
     }

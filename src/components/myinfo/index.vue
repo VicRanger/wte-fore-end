@@ -14,12 +14,12 @@
       <div class="opt"><div class="opt-title">我的帖子</div><div>（未开放）</div></div>
       <div class="opt"><div class="opt-title">签到</div><div>（未开放）</div></div>
       <div class="opt"><div class="opt-title">意见反馈</div><div>（未开放）</div></div>
-      <div class="pacman-fit pacman">
+      <!-- <div class="pacman-fit pacman">
         <div></div>
         <div></div>
         <div>502</div>
         <div>404</div>
-      </div>
+      </div> -->
     </div>
   </div>
     

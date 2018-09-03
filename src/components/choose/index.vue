@@ -56,8 +56,11 @@ export default {
   created() {
     // console.log("choose created");
   },
-  onShow() {
-    // console.log("choose onshow");
+  onLoad() {
+    wx.navigateTo({
+        url: "/pages/display/main?canteen_ename=" + "s1"
+      });
+    // console.log("choose onload");
   }
 };
 </script>

@@ -16,7 +16,7 @@
     <div v-else class="cmt-no">暂无评论</div>
 </template>
 <script>
-import fly from "../../utils/fly.js";
+import fly from "../../../utils/fly.js";
 export default {
   name: "comment-list",
   data() {

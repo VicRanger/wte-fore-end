@@ -8,8 +8,8 @@ function Login() {
             fly.get("openid/", { code: res.code })
                 .then(data => {
                     wx.setStorageSync("userID", { openid: data.openid, code: res.code })
-                    console.log("in Login:");
-                    console.log(data);
+                    // console.log("in Login:");
+                    // console.log(data);
                 })
                 .catch(err => {
                     console.log(err);
@@ -44,7 +44,7 @@ function GetData() {
     })
     fly.get('canteen_list/')
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             wx.setStorageSync("dataBase", {
                 data: res.data,
                 downloadTime: new Date().getTime()

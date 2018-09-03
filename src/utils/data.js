@@ -44,6 +44,6 @@ function LoadData(data){
     timeTable.push(item.timetable);
     closeDay.push(item.closeDay);
   }
-  console.log(timeTable);  
-  console.log(ename);  
+  // console.log(timeTable);  
+  // console.log(ename);  
 }

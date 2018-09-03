@@ -3,6 +3,7 @@ const fly = new Fly;
 
 //配置请求基地址
 fly.config.baseURL = "https://wte.wzz.ink/wte/";
+fly.config.timeout=3000;
 // fly.config.baseURL = "http://127.0.0.1:8000/wte/";
 
 // //添加请求拦截器
@@ -18,11 +19,13 @@ fly.config.baseURL = "https://wte.wzz.ink/wte/";
 fly.interceptors.response.use(
     (response, promise) => {
         //只将请求结果的data字段返回
+        // console.log(response);
         return response.data
     },
     (err, promise) => {
         //发生网络错误后会走到这里
         //promise.resolve("ssss")
+        // console.log(err);
         return err;
     }
 );  
