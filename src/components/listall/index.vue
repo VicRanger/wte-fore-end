@@ -103,7 +103,7 @@ export default {
   width: 55%;
 }
 .texts .name {
-  font-size: 0.5rem;
+  font-size: 0.46rem;
   color: #666;
 }
 .texts .state-open {

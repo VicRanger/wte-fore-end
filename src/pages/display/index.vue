@@ -73,6 +73,7 @@ function OnLoadFunc(vue) {
 <style scoped>
 .content-box {
   position: relative;
+  background-color: #fff;
 }
 .scroll-box {
   position: relative;
@@ -93,11 +94,11 @@ function OnLoadFunc(vue) {
   z-index: -999;
 }
 .canteen-name {
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
-  padding: 10px 0;
-  font-size: 0.48rem;
-  font-weight: 500;
+  border-top-left-radius: 1.6rem;
+  border-top-right-radius: 1.6rem;
+  padding: 0.2rem 0 0.3rem 0;
+  font-size: 0.4rem;
+  /* font-weight: 500; */
   width: 100%;
   text-align: center;
   color: rgb(238, 136, 53);

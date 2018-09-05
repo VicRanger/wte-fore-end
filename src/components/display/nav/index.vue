@@ -1,8 +1,10 @@
 <template>
     <div class="nav">
+      <div class="nav-list">
         <div @click="OnTabClick" v-for="(item,index) in navList" class="item" :class="currentTab==index?'item-active':'item-deactive'" :key="index" :data-index="index">
             {{item.text}}
         </div>
+      </div>
     </div>
 </template>
 
@@ -37,12 +39,15 @@ $unselected: #ccc;
 .nav {
   // position: fixed;
   // padding: 0.2rem 0;
-  width: 100%;
   background-color: #fff;
-  display: flex;
-  justify-content: center;
+  padding: 0 0.4rem;
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+  }
   .item {
-    font-size: 0.42rem;
+    font-size: 0.36rem;
     margin: 0 0.3rem;
     transition: all 0.3s ease-out;
     padding: 0 0.4rem;

@@ -6,6 +6,7 @@ export{
     canteenCount,
     closeDay,
     picUrl,
+    dataBase,
     LoadData
 }
 var picUrl = "https://static.wzz.moe/pic/"
@@ -16,6 +17,7 @@ var picUrl = [];
 var canteenCount = 0;
 var timeTable = [];
 var closeDay = [];
+var dataBase = {};
 // var timeTable = [
 //   [{ s: { h: 6, m: 30 }, e: { h: 20, m: 0 } }],   //n1
 //   [{ s: { h: 6, m: 30 }, e: { h: 8, m: 0 } }, { s: { h: 11, m: 0 }, e: { h: 12, m: 30 } }, { s: { h: 17, m: 0 }, e: { h: 18, m: 0 } }], //n2
@@ -34,6 +36,7 @@ var closeDay = [];
 //   "s3": [6, 0]
 // };
 function LoadData(data){
+  dataBase = data;
   let keys = Object.keys(data.canteen);
   canteenCount = keys.length;
   for(let i=0;i<canteenCount;i++){

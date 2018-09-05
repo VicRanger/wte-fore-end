@@ -1,15 +1,20 @@
 <template>
     <div v-if="HasComment" class="cmt-list">
       <div class="cmt-item" v-for="(item,index) in commentList" :key="index">
-        <div class="cmt-title">
-          <div class="cmt-avator-nickname">
+        <div class="cmt-content">
+          <div class="cmt-title">
+          <div class="cmt-info">
             <img mode="aspectFit" class="avator" :src="item.user_avatar_url" />
-            <div>{{item.user_nickname}}</div>
+            <div>
+              <div class="nickname">{{item.user_nickname}}</div>
+              <div class="cmt-time">{{item.add_time_text}}</div>
+            </div>
           </div>
-          <div @click="onCmtUpClick" :id="index" class="cmt-unupped" :class="{'cmt-upped':item.upped}"><span>喜欢 ({{item.up_count}})</span></div>
+            <div @click="onCmtUpClick" :id="index" class="cmt-unupped" :class="{'cmt-upped':item.upped}"><span>喜欢 ({{item.up_count}})</span></div>
+          </div>
+          <div class="cmt-text"><p>{{item.comment_text}}</p></div>
         </div>
-        <div class="cmt-text"><p>{{item.comment_text}}</p></div>
-        <div class="cmt-time">{{item.add_time_text}}</div>
+        <div class="cmt-iso"></div>
       </div>
       <div class="cmt-end">已经拉到底了～</div>
     </div>
@@ -20,14 +25,13 @@ import fly from "../../../utils/fly.js";
 export default {
   name: "comment-list",
   data() {
-    return {
-    };
+    return {};
   },
   props: {
     commentList: {
       type: Object,
       default: {}
-    },
+    }
   },
   methods: {
     onCmtUpClick(e) {
@@ -58,7 +62,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
+    }
   },
   computed: {
     HasComment() {
@@ -66,55 +70,67 @@ export default {
     }
   }
 };
-
 </script>
-<style scoped>
-.cmt-no {
-  width: 100%;
-  font-size: 0.3rem;
-  text-align: center;
-  padding: 0.3rem 0;
-  background-color: #fff;
-}
-.cmt-text {
-  padding: 0.1rem;
-}
-.cmt-time {
-  margin: 0.15rem 0.1rem 0.1rem 0.1rem;
-  color: #999;
-  font-size: 0.3rem;
-  text-align: right;
-}
-.cmt-item {
-  padding: 0.18rem 0.15rem;
-  box-shadow: 0px 2px 5px -2px #ccc;
-  /* border-bottom: 1px solid #ccc; */
-}
+<style lang="scss" scoped>
 .cmt-list {
   margin: 0 0;
   background-color: #fff;
+  .cmt-item {
+    padding: 0.18rem 0.15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .cmt-content {
+      width: 96%;
+      .cmt-title {
+        margin: 0.1rem 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .cmt-info {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          .avator {
+            height: 0.6rem;
+            width: 0.6rem;
+            border-radius: 100%;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+          }
+          .nickname {
+            padding: 0.05rem 0;
+            font-size: 0.3rem;
+          }
+          .cmt-time {
+            color: #999;
+            font-size: 0.2rem;
+          }
+        }
+      }
+      .cmt-text {
+        padding: 0.2rem;
+        font-size: 0.3rem;
+        color: #333;
+      }
+    }
+    .cmt-iso {
+      width: 95%;
+      border-bottom: 1px solid #eee;
+    }
+  }
 }
 .cmt-end {
-  font-size:0.3rem;
+  font-size: 0.3rem;
   color: #666;
   width: 100%;
   padding: 0.3rem 0;
   margin: 0 0 1.2rem 0;
   text-align: center;
 }
-.cmt-title {
-  margin: 0.1rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.cmt-avator-nickname {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+
 .cmt-unupped {
-  font-size: 0.3rem;
+  font-size: 0.28rem;
   color: #666;
   transition: all 0.3s ease;
 }
@@ -122,11 +138,11 @@ export default {
   font-weight: 800;
   color: rgb(238, 136, 53);
 }
-.avator {
-  height: 32px;
-  width: 32px;
-  border-radius: 16px;
-  margin: 0 10px;
-  border: 1px solid #ccc;
+.cmt-no {
+  width: 100%;
+  font-size: 0.3rem;
+  text-align: center;
+  padding: 0.3rem 0;
+  background-color: #fff;
 }
 </style>

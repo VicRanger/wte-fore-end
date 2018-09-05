@@ -20,6 +20,9 @@ export default {
 };
 </script>
 <style lang="scss">
+*{
+  font-size: 0.4rem;
+}
 $theme-color: rgb(238, 136, 53);
 .show {
   opacity: 1;
