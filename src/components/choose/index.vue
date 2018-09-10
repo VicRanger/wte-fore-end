@@ -57,9 +57,9 @@ export default {
     // console.log("choose created");
   },
   onLoad() {
-    wx.navigateTo({
-        url: "/pages/display/main?canteen_ename=" + "s1"
-      });
+    // wx.navigateTo({
+    //     url: "/pages/display/main?canteen_ename=" + "s1"
+    //   });
     // console.log("choose onload");
   }
 };

@@ -6,7 +6,7 @@
         
           <div class="canteen-name">{{canteen.name}}</div>
           
-        <display-nav @OnTabChange="OnTabChange"/>
+        <display-nav :currentTab="curTab" @OnTabChange="OnTabChange"/>
         <div class="content-box">
           <intro ref="introRef"/>
           <comment ref="commentRef" />
@@ -24,6 +24,7 @@ import intro from "../../components/display/intro";
 import item from "../../components/display/item";
 import { GetTimeOffsetText, GetFormattedTimeText } from "../../utils/tool";
 import { Obj2style, addTimeText } from "../../utils/tool";
+import { dataBase } from "../../utils/data";
 export default {
   name: "display",
   data() {
@@ -47,26 +48,23 @@ export default {
       this.$refs[this.refOrder[(this.curTab = index)]].Show();
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs[this.refOrder[this.curTab]].Hide();
-      setTimeout(() => {
-        this.$refs[this.refOrder[this.curTab]].Show();
-      }, 100);
+  mounted(){
+    this.$nextTick(()=>{
       this.$refs.commentRef.GetComments();
+      this.$refs[this.refOrder[this.curTab]].Show();
     });
   },
   onLoad() {
+    console.log("onload in display");
     OnLoadFunc(this);
   },
-  onUnload() {},
-  onPageScroll() {}
+  onUnload() {
+    this.$refs[this.refOrder[this.curTab]].Hide();
+  }
 };
 function OnLoadFunc(vue) {
-  let dataBase = wx.getStorageSync("dataBase") || {};
-  // console.log(dataBase);
   if (dataBase) {
-    vue.canteen = dataBase.data.canteen[vue.$root.$mp.query.canteen_ename];
+    vue.canteen = dataBase.canteen[vue.$root.$mp.query.canteen_ename];
   }
 }
 </script>
@@ -105,4 +103,3 @@ function OnLoadFunc(vue) {
   background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
 }
 </style>
-

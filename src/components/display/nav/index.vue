@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     OnTabClick(e) {
-      console.log(this.currentTab);
+      // console.log(this.currentTab);
       let index = e.target.dataset.index;
       if (index == this.currentTab) return;
       this.currentTab = index;

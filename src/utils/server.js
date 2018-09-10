@@ -42,7 +42,7 @@ function GetData() {
     wx.showLoading({
         title: '数据下载中...',
     })
-    fly.get('canteen_list/')
+    fly.get('database/')
         .then(res => {
             // console.log(res.data);
             wx.setStorageSync("dataBase", {
